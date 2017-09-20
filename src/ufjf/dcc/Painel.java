@@ -5,7 +5,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -80,19 +85,22 @@ public class Painel extends JFrame{
                     try {
                         float isFloat1 = Float.parseFloat(txtLat.getText());
                         float isFloat2 = Float.parseFloat(txtLong.getText());
+                        
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        sdf.setLenient(false);
+                        Date date = sdf.parse(txtData.getText());
+                        
+                        lstDados.getSelectedValue().setLatitude(txtLat.getText());
+                        lstDados.getSelectedValue().setLongitude(txtLong.getText());
+                        lstDados.getSelectedValue().setData(txtData.getText());
+                        lstDados.getSelectedValue().setDescricao(txtDesc.getText());
+                        lstDados.clearSelection();
+                        lstDados.updateUI();
                     } catch (NumberFormatException exception) {
-                        JOptionPane.showConfirmDialog(null, "Valor de latitude ou longitude invalido!", "Erro", JOptionPane.CANCEL_OPTION);
+                        JOptionPane.showConfirmDialog(null, "Valor invalido!", "Erro", JOptionPane.CANCEL_OPTION);
+                    } catch (ParseException ex) {
+                        JOptionPane.showConfirmDialog(null, "Valor da data invalido!", "Erro", JOptionPane.CANCEL_OPTION);
                     }
-                    
-                    Dados dado = new Dados();
-                    dados.remove(lstDados.getSelectedValue());
-                    dado.setLatitude(txtLat.getText());
-                    dado.setLongitude(txtLong.getText());
-                    dado.setData(txtData.getText());
-                    dado.setDescricao(txtDesc.getText());
-                    dados.add(dado);
-                    lstDados.clearSelection();
-                    lstDados.updateUI();
                 }
             }
         });
@@ -100,22 +108,28 @@ public class Painel extends JFrame{
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!txtLat.getText().isEmpty() && !txtLong.getText().isEmpty() && !txtData.getText().isEmpty() && !txtDesc.getText().isEmpty()){
+                if(/*!lstDados.isSelectionEmpty() && */!txtLat.getText().isEmpty() && !txtLong.getText().isEmpty() && !txtData.getText().isEmpty() && !txtDesc.getText().isEmpty()){
                     try {
                         float isFloat1 = Float.parseFloat(txtLat.getText());
                         float isFloat2 = Float.parseFloat(txtLong.getText());
+                        
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        sdf.setLenient(false);
+                        Date date = sdf.parse(txtData.getText());
+                    
+                        Dados dado = new Dados();
+                        dado.setLatitude(txtLat.getText());
+                        dado.setLongitude(txtLong.getText());
+                        dado.setData(txtData.getText());
+                        dado.setDescricao(txtDesc.getText());
+                        dados.add(dado);
+                        lstDados.clearSelection();
+                        lstDados.updateUI();
                     } catch (NumberFormatException exception) {
                         JOptionPane.showConfirmDialog(null, "Valor de latitude ou longitude invalido!", "Erro", JOptionPane.CANCEL_OPTION);
+                    } catch (ParseException ex) {
+                        JOptionPane.showConfirmDialog(null, "Valor da data invalido!", "Erro", JOptionPane.CANCEL_OPTION);
                     }
-                    
-                    Dados dado = new Dados();
-                    dado.setLatitude(txtLat.getText());
-                    dado.setLongitude(txtLong.getText());
-                    dado.setData(txtData.getText());
-                    dado.setDescricao(txtDesc.getText());
-                    dados.add(dado);
-                    lstDados.clearSelection();
-                    lstDados.updateUI();
                 }
             }
         });
