@@ -51,6 +51,6 @@ public class Dados {
 
     @Override
     public String toString() {
-        return "Dia: " + data +"\n" + latitude + " " + longitude + "\nDescrição: " + descricao;
+        return "Dia: " + data +" \n" + latitude + " " + longitude + " \nDescrição: " + descricao;
     }
 }
