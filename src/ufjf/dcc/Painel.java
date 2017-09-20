@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -82,6 +83,7 @@ public class Painel extends JFrame{
                     } catch (NumberFormatException exception) {
                         JOptionPane.showConfirmDialog(null, "Valor de latitude ou longitude invalido!", "Erro", JOptionPane.CANCEL_OPTION);
                     }
+                    
                     Dados dado = new Dados();
                     dados.remove(lstDados.getSelectedValue());
                     dado.setLatitude(txtLat.getText());
@@ -105,6 +107,7 @@ public class Painel extends JFrame{
                     } catch (NumberFormatException exception) {
                         JOptionPane.showConfirmDialog(null, "Valor de latitude ou longitude invalido!", "Erro", JOptionPane.CANCEL_OPTION);
                     }
+                    
                     Dados dado = new Dados();
                     dado.setLatitude(txtLat.getText());
                     dado.setLongitude(txtLong.getText());
